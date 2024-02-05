@@ -10,10 +10,6 @@ class SignUpView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Padding(
-          padding: EdgeInsets.only(left: 15, top: 10),
-          child: Icon(Icons.arrow_back),
-        ),
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 15, top: 10),

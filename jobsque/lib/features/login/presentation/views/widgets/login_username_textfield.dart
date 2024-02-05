@@ -2,11 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:jobsque/core/utils/styles.dart';
 
 class LoginUserNameTextField extends StatelessWidget {
-  const LoginUserNameTextField({super.key});
+  const LoginUserNameTextField({super.key, this.emailController});
+
+  final TextEditingController? emailController;
 
   @override
   Widget build(BuildContext context) {
     return TextField(
+      controller: emailController,
       decoration: InputDecoration(
         contentPadding:
             const EdgeInsets.symmetric(horizontal: 16, vertical: 20),

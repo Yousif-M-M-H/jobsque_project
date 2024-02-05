@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:jobsque/features/signup/presentation/views/widgets/choose_work_page/widgets/introduction_widget.dart';
-import 'package:jobsque/features/signup/presentation/views/widgets/choose_work_page/widgets/job_choose_container.dart';
+import 'package:jobsque/features/signup/presentation/views/choose_work_page/widgets/introduction_widget.dart';
+import 'package:jobsque/features/signup/presentation/views/choose_work_page/widgets/job_choose_container.dart';
 
 class ChooseWorkViewBody extends StatelessWidget {
   const ChooseWorkViewBody({super.key});

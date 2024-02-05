@@ -2,11 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:jobsque/core/utils/styles.dart';
 
 class UserNameTextField extends StatelessWidget {
-  const UserNameTextField({super.key});
+  const UserNameTextField({super.key, this.userController, this.onChange});
 
+  final TextEditingController? userController;
+  final void Function(String)? onChange;
   @override
   Widget build(BuildContext context) {
     return TextField(
+      onChanged: onChange,
+      controller: userController,
       decoration: InputDecoration(
         contentPadding:
             const EdgeInsets.symmetric(horizontal: 16, vertical: 20),

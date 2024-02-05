@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:jobsque/core/utils/styles.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:jobsque/features/home/presentation/views/home_view.dart';
+import 'package:jobsque/features/login/presentation/model%20view/login_user_cubit/login_user_cubit.dart';
 import 'package:jobsque/features/login/presentation/views/widgets/already_have_account_row.dart';
 import 'package:jobsque/features/login/presentation/views/widgets/forgot_password.dart';
+import 'package:jobsque/features/login/presentation/views/widgets/introduction_login_widget.dart';
 import 'package:jobsque/features/login/presentation/views/widgets/login_button.dart';
-import 'package:jobsque/features/login/presentation/views/widgets/login_divder.dart';
+import 'package:jobsque/features/login/presentation/views/widgets/login_footer.dart';
 import 'package:jobsque/features/login/presentation/views/widgets/login_password_textfield.dart';
 import 'package:jobsque/features/login/presentation/views/widgets/login_username_textfield.dart';
-import 'package:jobsque/features/signup/presentation/views/widgets/sign_with_google_face.dart';
 
 class LoginViewBody extends StatelessWidget {
   const LoginViewBody({super.key});
@@ -15,6 +17,8 @@ class LoginViewBody extends StatelessWidget {
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
+    TextEditingController emailController = TextEditingController();
+    TextEditingController passwordController = TextEditingController();
 
     return Padding(
       padding: EdgeInsets.only(
@@ -26,14 +30,14 @@ class LoginViewBody extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text('Login', style: AppStyles.mediumFont28),
-          SizedBox(height: screenHeight * 0.01),
-          const Text('Please login to find your dream job',
-              style: AppStyles.normalFont16),
-          SizedBox(height: screenHeight * 0.05),
-          const LoginUserNameTextField(),
+          LoginIntroduction(screenHeight: screenHeight),
+          LoginUserNameTextField(
+            emailController: emailController,
+          ),
           SizedBox(height: screenHeight * 0.02),
-          const LoginPasswordTextField(),
+          LoginPasswordTextField(
+            passwordController: passwordController,
+          ),
           SizedBox(height: screenHeight * 0.015),
           const ForgotPasswordRow(),
           const Expanded(child: SizedBox()),
@@ -41,12 +45,38 @@ class LoginViewBody extends StatelessWidget {
             child: LoginAlreadyHaveAnAccWidget(),
           ),
           SizedBox(height: screenHeight * 0.02),
-          const LoginAccountButton(),
-          SizedBox(height: screenHeight * 0.025),
-          const LoginRowDivderWidget(),
-          SizedBox(height: screenHeight * 0.03),
-          SignInWithGoogleNFaceRow(screenWidth: screenWidth),
-          SizedBox(height: screenHeight * 0.05),
+          LoginAccountButton(
+            onPressed: () {
+              context.read<LoginUserCubit>().loginUser(
+                    email: emailController.text.trim(),
+                    password: passwordController.text.trim(),
+                  );
+            },
+          ),
+          LoginFooter(screenHeight: screenHeight, screenWidth: screenWidth),
+          BlocListener<LoginUserCubit, LoginUserState>(
+            listener: (context, state) {
+              if (state is LoginUserFailure) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(state.errMessage),
+                  ),
+                );
+              } else if (state is LoginUserSuccess) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('user logged in successfully'),
+                  ),
+                );
+                Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const HomeView(),
+                    ));
+              }
+            },
+            child: Container(),
+          ),
         ],
       ),
     );

@@ -11,8 +11,7 @@ class ChooseJobWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 100,
-      width: 100,
+      // padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 40),
       decoration: ShapeDecoration(
         color: const Color(0xFFFAFAFA),
         shape: RoundedRectangleBorder(
@@ -21,11 +20,11 @@ class ChooseJobWidget extends StatelessWidget {
         ),
       ),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SvgPicture.asset(
-            Assets.imagesManagemntContainer,
+            Assets.imagesGoogleContainer,
           ),
           const SizedBox(height: 16),
           Text(

@@ -2,11 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:jobsque/core/utils/styles.dart';
 
 class PasswordTextField extends StatelessWidget {
-  const PasswordTextField({super.key});
+  const PasswordTextField({super.key, this.passwordController});
+
+  final TextEditingController? passwordController;
 
   @override
   Widget build(BuildContext context) {
     return TextField(
+      controller: passwordController,
       decoration: InputDecoration(
         contentPadding:
             const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
