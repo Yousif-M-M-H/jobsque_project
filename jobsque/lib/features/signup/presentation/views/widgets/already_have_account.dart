@@ -1,7 +1,8 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:jobsque/core/utils/app_router.dart';
 import 'package:jobsque/core/utils/styles.dart';
-import 'package:jobsque/features/login/presentation/views/login_view.dart';
 
 class AlreadyHaveAnAccWidget extends StatelessWidget {
   const AlreadyHaveAnAccWidget({
@@ -17,15 +18,14 @@ class AlreadyHaveAnAccWidget extends StatelessWidget {
         children: [
           TextSpan(
             text: 'Login',
-            style: const TextStyle(
+            style: TextStyle(
               color: Color(0xFF3366FF),
               fontWeight: FontWeight.bold,
+              decoration: TextDecoration.underline,
             ),
             recognizer: TapGestureRecognizer()
               ..onTap = () {
-                Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => const LoginView(),
-                ));
+                GoRouter.of(context).go(AppRouter.kloginView);
               },
           ),
         ],

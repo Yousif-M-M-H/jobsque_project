@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:jobsque/core/utils/styles.dart';
 
 class LoginPasswordTextField extends StatelessWidget {

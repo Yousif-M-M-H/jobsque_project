@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:jobsque/features/home/presentation/views/home_view.dart';
+import 'package:go_router/go_router.dart';
+import 'package:jobsque/core/utils/app_router.dart';
 import 'package:jobsque/features/login/presentation/model%20view/login_user_cubit/login_user_cubit.dart';
 import 'package:jobsque/features/login/presentation/views/widgets/already_have_account_row.dart';
 import 'package:jobsque/features/login/presentation/views/widgets/forgot_password.dart';
@@ -20,65 +21,68 @@ class LoginViewBody extends StatelessWidget {
     TextEditingController emailController = TextEditingController();
     TextEditingController passwordController = TextEditingController();
 
-    return Padding(
-      padding: EdgeInsets.only(
-        top: screenHeight * 0.05,
-        left: screenWidth * 0.05,
-        right: screenWidth * 0.05,
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          LoginIntroduction(screenHeight: screenHeight),
-          LoginUserNameTextField(
-            emailController: emailController,
-          ),
-          SizedBox(height: screenHeight * 0.02),
-          LoginPasswordTextField(
-            passwordController: passwordController,
-          ),
-          SizedBox(height: screenHeight * 0.015),
-          const ForgotPasswordRow(),
-          const Expanded(child: SizedBox()),
-          const Center(
-            child: LoginAlreadyHaveAnAccWidget(),
-          ),
-          SizedBox(height: screenHeight * 0.02),
-          LoginAccountButton(
-            onPressed: () {
-              context.read<LoginUserCubit>().loginUser(
-                    email: emailController.text.trim(),
-                    password: passwordController.text.trim(),
-                  );
-            },
-          ),
-          LoginFooter(screenHeight: screenHeight, screenWidth: screenWidth),
-          BlocListener<LoginUserCubit, LoginUserState>(
-            listener: (context, state) {
-              if (state is LoginUserFailure) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text(state.errMessage),
+    return Column(
+      children: [
+        Expanded(
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: EdgeInsets.only(
+                top: screenHeight * 0.05,
+                left: screenWidth * 0.05,
+                right: screenWidth * 0.05,
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  LoginIntroduction(screenHeight: screenHeight),
+                  LoginUserNameTextField(
+                    emailController: emailController,
                   ),
-                );
-              } else if (state is LoginUserSuccess) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text('user logged in successfully'),
+                  SizedBox(height: screenHeight * 0.02),
+                  LoginPasswordTextField(
+                    passwordController: passwordController,
                   ),
-                );
-                Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const HomeView(),
-                    ));
-              }
-            },
-            child: Container(),
+                  SizedBox(height: screenHeight * 0.015),
+                  const ForgotPasswordRow(),
+                  SizedBox(height: screenHeight * 0.02),
+                ],
+              ),
+            ),
           ),
-        ],
-      ),
+        ),
+        // Widgets that will stay at the bottom
+        const Center(child: LoginAlreadyHaveAnAccWidget()),
+        SizedBox(height: screenHeight * 0.02),
+        LoginAccountButton(
+          onPressed: () {
+            context.read<LoginUserCubit>().loginUser(
+                  email: emailController.text.trim(),
+                  password: passwordController.text.trim(),
+                );
+          },
+        ),
+        LoginFooter(screenWidth: screenWidth, screenHeight: screenHeight),
+        BlocListener<LoginUserCubit, LoginUserState>(
+          listener: (context, state) {
+            if (state is LoginUserFailure) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(state.errMessage),
+                ),
+              );
+            } else if (state is LoginUserSuccess) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text('user logged in successfully'),
+                ),
+              );
+              GoRouter.of(context).go(AppRouter.knavbarView);
+            }
+          },
+          child: Container(),
+        ),
+      ],
     );
   }
 }

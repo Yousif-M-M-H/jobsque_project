@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:jobsque/core/models/register_model/user.dart';
+import 'package:jobsque/core/storage/token_storage.dart';
 import 'package:jobsque/features/signup/presentation/data/repos/register_repo.dart';
 import 'package:meta/meta.dart';
 
@@ -21,6 +22,10 @@ class RegisterUserCubit extends Cubit<RegisterUserState> {
     result.fold((failure) {
       emit(RegisterUserFailure(failure.errMessage));
     }, (users) {
+      TokenStorage tokenStorage = TokenStorage();
+      tokenStorage.saveToken(users.token ?? "");
+      tokenStorage.saveUserId(users.profile!.userId!);
+
       emit(RegisterUserSuccess(users));
     });
   }

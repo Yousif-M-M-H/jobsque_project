@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jobsque/core/utils/styles.dart';
 import 'package:jobsque/features/home/presentation/model%20views/username_cubit/user_name_cubit.dart';
+import 'package:jobsque/features/search/presentation/views/search_view.dart';
 
 class HomeIntroduction extends StatelessWidget {
   const HomeIntroduction({
@@ -19,10 +20,22 @@ class HomeIntroduction extends StatelessWidget {
         BlocBuilder<UserNameCubit, UserNameState>(
           builder: (context, state) {
             if (state is UserNameLoaded) {
-              return Text("Hi, ${state.username}👋",
-                  style: AppStyles.mediumFont24);
+              return GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const SearchView(),
+                      ));
+                },
+                child: Text("Hi, ${state.username}👋",
+                    style: AppStyles.mediumFont24),
+              );
             } else {
-              return const Text("Hi");
+              return const Text(
+                "Hi khalid 👋",
+                style: AppStyles.mediumFont24,
+              );
             }
           },
         ),

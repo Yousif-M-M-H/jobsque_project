@@ -1,43 +1,78 @@
 import 'package:flutter/material.dart';
-import 'package:jobsque/features/signup/presentation/views/choose_work_page/widgets/introduction_widget.dart';
-import 'package:jobsque/features/signup/presentation/views/choose_work_page/widgets/job_choose_container.dart';
 
-class ChooseWorkViewBody extends StatelessWidget {
-  const ChooseWorkViewBody({super.key});
+class FlagSelector extends StatelessWidget {
+  const FlagSelector({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
+    List<Widget> flags = [
+      const FlagWidget(countryCode: 'US'),
+      const FlagWidget(countryCode: 'US'),
+      const FlagWidget(countryCode: 'US'),
+      const FlagWidget(countryCode: 'US'),
+      const FlagWidget(countryCode: 'US'),
+      const FlagWidget(countryCode: 'US'),
+      const FlagWidget(countryCode: 'US'),
+      const FlagWidget(countryCode: 'US'),
+      const FlagWidget(countryCode: 'US'),
+      const FlagWidget(countryCode: 'US'),
+      const FlagWidget(countryCode: 'US'),
+      const FlagWidget(countryCode: 'US'),
+      const FlagWidget(countryCode: 'MY'),
+    ];
 
-    return Padding(
-      padding: EdgeInsets.symmetric(
-        horizontal: screenWidth * 0.05,
-        vertical: screenHeight * 0.05,
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Flag Selector'),
       ),
-      child: Column(
-        children: [
-          const IntroductionWidget(),
-          SizedBox(height: screenHeight * 0.05),
-          GridView.builder(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              crossAxisSpacing: 15.0,
-              mainAxisSpacing: 20.0,
-            ),
-            itemCount: 6,
-            itemBuilder: (BuildContext context, int index) {
-              return const ChooseJobWidget();
-            },
-          ),
-          const SizedBox(height: 40),
-          Center(
-            child: ElevatedButton(onPressed: () {}, child: const Text("Login")),
-          )
-        ],
+      body: SingleChildScrollView(
+        child: Wrap(
+          spacing: 8.0,
+          runSpacing: 4.0,
+          children: _buildFlagRows(flags),
+        ),
       ),
+    );
+  }
+
+  List<Widget> _buildFlagRows(List<Widget> flags) {
+    List<Widget> rows = [];
+    int count = 0;
+    List<Widget> rowChildren = [];
+    for (var flag in flags) {
+      rowChildren.add(flag);
+      count++;
+      if (count == 2 || count == 3) {
+        rows.add(Row(
+          children: rowChildren,
+        ));
+        rowChildren = [];
+        count = 0;
+      }
+    }
+    if (rowChildren.isNotEmpty) {
+      rows.add(Row(
+        children: rowChildren,
+      ));
+    }
+    return rows;
+  }
+}
+
+class FlagWidget extends StatelessWidget {
+  final String countryCode;
+
+  const FlagWidget({Key? key, required this.countryCode}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Chip(
+      avatar: const CircleAvatar(
+        backgroundImage: NetworkImage(
+            "https://freepngdesign.com/content/uploads/images/united-states-rounded-flag-4280.png"),
+      ),
+      label: Text(countryCode),
+      onDeleted: () {},
     );
   }
 }

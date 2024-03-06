@@ -39,6 +39,13 @@ abstract class AppStyles {
     fontWeight: FontWeight.w500,
     letterSpacing: 0.18,
   );
+  static const mediumFont20 = TextStyle(
+    color: Color(0xFF111827),
+    fontSize: 20,
+    fontFamily: 'SF Pro Display',
+    fontWeight: FontWeight.w500,
+    letterSpacing: 0.18,
+  );
   static const mediumFont24 = TextStyle(
     color: Color(0xFF111827),
     fontSize: 24,
@@ -49,6 +56,12 @@ abstract class AppStyles {
   static const mediumFont28 = TextStyle(
     color: Color(0xFF111827),
     fontSize: 28,
+    fontWeight: FontWeight.w500,
+    letterSpacing: 0.28,
+  );
+  static const mediumFont32 = TextStyle(
+    color: Color(0xFF111827),
+    fontSize: 32,
     fontWeight: FontWeight.w500,
     letterSpacing: 0.28,
   );

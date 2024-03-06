@@ -12,11 +12,9 @@ class CustomSeachAppbar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 24),
+      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
       child: Row(
         children: [
-          const Icon(Icons.arrow_back),
-          const SizedBox(width: 12),
           Expanded(
             child: SearchTextfield(
               onSubmitted: onSubmitted,

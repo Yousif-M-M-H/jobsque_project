@@ -3,23 +3,26 @@ import 'package:flutter/material.dart';
 class RecentJobSalary extends StatelessWidget {
   const RecentJobSalary({
     super.key,
+    required this.salary,
   });
+  final String salary;
 
   @override
   Widget build(BuildContext context) {
-    return const Text.rich(
+    return Text.rich(
       TextSpan(
         children: [
           TextSpan(
-            text: '\$15K',
-            style: TextStyle(
+            // ignore: prefer_adjacent_string_concatenation
+            text: '\$$salary' + 'k',
+            style: const TextStyle(
               color: Color(0xFF2E8E18),
               fontSize: 16,
               fontWeight: FontWeight.w500,
               letterSpacing: 0.16,
             ),
           ),
-          TextSpan(
+          const TextSpan(
             text: '/Month',
             style: TextStyle(
               color: Color(0xFF6B7280),

@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:jobsque/core/errors/failures.dart';
-import 'package:jobsque/core/models/register_model/user.dart';
+import 'package:jobsque/core/models/home_models/user_login_model.dart';
 import 'package:jobsque/core/utils/api_service.dart';
 import 'package:jobsque/features/login/data/repos/login_user_repo.dart';
 
@@ -11,7 +11,7 @@ class LoginUserRepoImpl implements LoginUserRepo {
   LoginUserRepoImpl(this.apiService);
 
   @override
-  Future<Either<Failure, UserModel>> loginUser({
+  Future<Either<Failure, UserLoginModel>> loginUser({
     required String email,
     required String password,
   }) async {
@@ -26,9 +26,10 @@ class LoginUserRepoImpl implements LoginUserRepo {
         data: data,
       );
 
-      final UserModel userModel = UserModel.fromJson(responseData);
+      final UserLoginModel userLoginModel =
+          UserLoginModel.fromJson(responseData);
 
-      return Right(userModel);
+      return Right(userLoginModel);
     } catch (e) {
       if (e is DioException) {
         return Left(ServerFailure.fromDioException(e));

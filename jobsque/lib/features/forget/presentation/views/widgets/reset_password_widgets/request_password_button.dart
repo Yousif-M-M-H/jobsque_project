@@ -13,9 +13,9 @@ class RequestPasswordLogin extends StatelessWidget {
       width: double.infinity,
       child: MaterialButton(
         onPressed: () {},
-        color: const Color(0xFF3366FF), // Button color
+        color: const Color(0xFF3366FF),
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(1000), // Border radius
+          borderRadius: BorderRadius.circular(1000),
         ),
         child: Padding(
           padding: const EdgeInsets.all(14),

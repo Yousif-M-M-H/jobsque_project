@@ -4,15 +4,18 @@ import 'package:jobsque/core/utils/styles.dart';
 class SuggestedJobRow extends StatelessWidget {
   const SuggestedJobRow({
     super.key,
+    required this.sugTitle,
   });
+
+  final String sugTitle;
 
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        const Text(
-          'Suggested Job',
+        Text(
+          sugTitle,
           style: AppStyles.mediumFont18,
         ),
         Text(
