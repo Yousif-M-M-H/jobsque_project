@@ -93,7 +93,7 @@ class SignUpViewBody extends StatelessWidget {
                     content: Text('User successfully registered'),
                   ),
                 );
-                GoRouter.of(context).go(AppRouter.knavbarView);
+                GoRouter.of(context).go(AppRouter.kchooseWorkType);
               }
             },
             child: Container(),

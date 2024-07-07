@@ -10,10 +10,6 @@ class ForgetPasswordView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 24, vertical: 20),
-          child: Icon(Icons.arrow_back),
-        ),
         actions: [
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),

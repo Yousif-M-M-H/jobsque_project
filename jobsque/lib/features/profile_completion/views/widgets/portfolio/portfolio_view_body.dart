@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:jobsque/core/storage/token_storage.dart';
 import 'package:jobsque/features/profile/presentation/views/widgets/portfolio_page/add_file_container.dart';
 import 'package:jobsque/features/profile_completion/views/widgets/portfolio/file_opener_container.dart';
 import 'package:open_file/open_file.dart';
@@ -20,6 +21,8 @@ class PortfolioViewBody2 extends StatefulWidget {
 }
 
 class _PortfolioViewBodyState extends State<PortfolioViewBody2> {
+  final TokenStorage tokenStorage = TokenStorage();
+
   File? cvFile;
 
   Future<void> _pickCV() async {
@@ -32,6 +35,8 @@ class _PortfolioViewBodyState extends State<PortfolioViewBody2> {
   }
 
   Future<bool> _submitPortfolio() async {
+    String? bearerToken = await tokenStorage.getToken();
+
     const String url =
         'https://project2.amit-learning.com/api/user/profile/portofolios';
     Dio dio = Dio();
@@ -48,10 +53,7 @@ class _PortfolioViewBodyState extends State<PortfolioViewBody2> {
         url,
         data: formData,
         options: Options(
-          headers: {
-            'Authorization':
-                'Bearer 8228|s6xgszK3YYzTjk7aUnW8pu8V4PlSxEqtcYozh2FR'
-          },
+          headers: {'Authorization': 'Bearer $bearerToken'},
         ),
       );
 
@@ -60,7 +62,7 @@ class _PortfolioViewBodyState extends State<PortfolioViewBody2> {
           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
               content: Text('Portfolio submitted successfully')));
         }
-        return true; // Return true upon successful submission
+        return true;
       } else {
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
@@ -73,7 +75,7 @@ class _PortfolioViewBodyState extends State<PortfolioViewBody2> {
             SnackBar(content: Text('Error submitting portfolio: $e')));
       }
     }
-    return false; // Return false if submission failed
+    return false;
   }
 
   @override
@@ -99,7 +101,7 @@ class _PortfolioViewBodyState extends State<PortfolioViewBody2> {
                 onPressed: () async {
                   final bool success = await _submitPortfolio();
                   if (success && mounted) {
-                    Navigator.pop(context, true); // Pass true back on success
+                    Navigator.pop(context, true);
                   }
                 },
                 child: const Text('Submit Portfolio'),

@@ -10,11 +10,12 @@ class SalaryRichText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String fullSal = "\$${salary}k";
     return Text.rich(
       TextSpan(
         children: [
           TextSpan(
-            text: salary,
+            text: fullSal,
             style: const TextStyle(
               color: Colors.white,
               fontSize: 20,

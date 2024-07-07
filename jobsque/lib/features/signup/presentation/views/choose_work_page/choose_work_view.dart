@@ -8,7 +8,7 @@ class ChooseWorkView extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Scaffold(
       body: SafeArea(
-        child: FlagSelector(),
+        child: SignUpWorkTypeScreen(),
       ),
     );
   }

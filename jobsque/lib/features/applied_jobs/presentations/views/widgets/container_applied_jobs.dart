@@ -8,10 +8,12 @@ class AppliedJobContainer extends StatelessWidget {
     super.key,
     required this.jobTitle,
     required this.compName,
+    required this.jobImage,
   });
 
   final String jobTitle;
   final String compName;
+  final String jobImage;
 
   @override
   Widget build(BuildContext context) {
@@ -20,10 +22,14 @@ class AppliedJobContainer extends StatelessWidget {
       child: Column(
         children: [
           ListTile(
-            leading: SvgPicture.asset(
-              Assets.imagesZoom,
-              width: 70,
-              height: 70,
+            leading: ClipRRect(
+              borderRadius: BorderRadius.circular(8),
+              child: Image.network(
+                jobImage,
+                width: 45,
+                height: 45,
+                fit: BoxFit.cover,
+              ),
             ),
             title: Text(
               jobTitle,
@@ -35,33 +41,11 @@ class AppliedJobContainer extends StatelessWidget {
             ),
             trailing: SvgPicture.asset(Assets.imagesOptionsIcon),
           ),
-          const SizedBox(height: 10),
+          const SizedBox(height: 5),
           const Padding(
             padding: EdgeInsets.symmetric(horizontal: 24),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  "Posted 2 days ago",
-                  style: AppStyles.normalFont12,
-                ),
-                Row(
-                  children: [
-                    Icon(
-                      Icons.watch_later_outlined,
-                      color: Colors.green,
-                      size: 15,
-                    ),
-                    SizedBox(width: 8),
-                    Text(
-                      "Be an early Applicant",
-                      style: AppStyles.normalFont12,
-                    )
-                  ],
-                )
-              ],
-            ),
-          )
+            child: Divider(),
+          ),
         ],
       ),
     );

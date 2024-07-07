@@ -1,15 +1,18 @@
-// ignore_for_file: use_build_context_synchronously
+// ignore_for_file: use_build_context_synchronously, avoid_print
 
 import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:jobsque/core/models/home_models/apply_job_model.dart';
 import 'package:jobsque/core/storage/token_storage.dart';
+import 'package:jobsque/core/utils/app_router.dart';
+import 'package:jobsque/core/utils/styles.dart';
 import 'package:jobsque/features/apply_job/presentation/views/widgets/bio_data/bio_data_view_body.dart';
 import 'package:jobsque/features/apply_job/presentation/views/widgets/upload_portfolio/widgets/cv_other_file_container.dart';
 
 class ApplyJobViewBody extends StatelessWidget {
-  const ApplyJobViewBody({super.key, required this.jobId});
+  const ApplyJobViewBody({Key? key, required this.jobId}) : super(key: key);
 
   final int jobId;
 
@@ -74,6 +77,37 @@ class _UploadCvAndOtherFileColumnState
   String baseUrl = "https://project2.amit-learning.com/api/";
   final TokenStorage tokenStorage = TokenStorage();
 
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          const SizedBox(height: 20),
+          GestureDetector(
+            onTap: _pickCvFile,
+            child: UploadCvAndOtherFileContainer(
+              title: "CV",
+              filePath: _cvFilePath,
+            ),
+          ),
+          const SizedBox(height: 20),
+          GestureDetector(
+            onTap: _pickOtherFile,
+            child: UploadCvAndOtherFileContainer(
+              title: "Other File",
+              filePath: _otherFilePath,
+            ),
+          ),
+          const SizedBox(height: 20),
+          ElevatedButton(
+            onPressed: _applyForJob,
+            child: const Text("Apply"),
+          ),
+        ],
+      ),
+    );
+  }
+
   Future<void> _pickCvFile() async {
     final result = await FilePicker.platform.pickFiles();
     if (result != null) {
@@ -130,11 +164,18 @@ class _UploadCvAndOtherFileColumnState
 
       if (response.statusCode == 200) {
         ApplyJob applyJobResponse = ApplyJob.fromJson(response.data);
-        // Now you can use applyJobResponse in your UI or logic
         print("Application successful: ${applyJobResponse.data?.id}");
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text("Application successful")),
-        );
+
+        // Store the applied job ID and user ID
+        await tokenStorage.saveAppliedJobId(widget.jobId);
+        GoRouter.of(context).go(AppRouter.ksuccessapplicationpageView);
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          backgroundColor: Colors.green,
+          content: Text(
+            "Application sent successfully",
+            style: AppStyles.mediumFont14.copyWith(color: Colors.white),
+          ),
+        ));
       } else {
         print("Application failed with status code: ${response.statusCode}");
         ScaffoldMessenger.of(context).showSnackBar(
@@ -147,36 +188,5 @@ class _UploadCvAndOtherFileColumnState
         SnackBar(content: Text("Error during application: $e")),
       );
     }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          const SizedBox(height: 20),
-          GestureDetector(
-            onTap: _pickCvFile,
-            child: UploadCvAndOtherFileContainer(
-              title: "CV",
-              filePath: _cvFilePath,
-            ),
-          ),
-          const SizedBox(height: 20),
-          GestureDetector(
-            onTap: _pickOtherFile,
-            child: UploadCvAndOtherFileContainer(
-              title: "Other File",
-              filePath: _otherFilePath,
-            ),
-          ),
-          const SizedBox(height: 20),
-          ElevatedButton(
-            onPressed: _applyForJob,
-            child: const Text("Apply"),
-          ),
-        ],
-      ),
-    );
   }
 }

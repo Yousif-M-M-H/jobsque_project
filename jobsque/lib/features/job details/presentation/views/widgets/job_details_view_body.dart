@@ -41,6 +41,7 @@ class _JobDetailsViewBodyState extends State<JobDetailsViewBody> {
                   final job = state.jobs.data!;
 
                   return JobMainInformationWidget(
+                    url: job.image ?? "",
                     jobName: job.name ?? "",
                     jobLocation: job.compName ?? "",
                   );

@@ -2,14 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:jobsque/core/utils/styles.dart';
 
 class NameAndJobColumn extends StatelessWidget {
-  const NameAndJobColumn({super.key});
+  const NameAndJobColumn({super.key, required this.name});
+
+  final String name;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         Text(
-          "Rafif Dian Axelingga",
+          name,
           style:
               AppStyles.mediumFont20.copyWith(color: const Color(0xFF111827)),
         ),

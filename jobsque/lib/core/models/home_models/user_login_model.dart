@@ -3,7 +3,7 @@ class UserLoginModel {
   String? token;
   bool? status;
 
-  UserLoginModel({this.user, this.token, this.status});
+  UserLoginModel({this.user, this.token, this.status, required String name});
 
   UserLoginModel.fromJson(Map<String, dynamic> json) {
     user = json['user'] != null ? new UserLogin.fromJson(json['user']) : null;

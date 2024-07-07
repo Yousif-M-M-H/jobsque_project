@@ -5,9 +5,11 @@ class ApplyNowRow extends StatelessWidget {
   const ApplyNowRow({
     super.key,
     required this.salary,
+    this.onPressed,
   });
 
   final String salary;
+  final void Function()? onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +22,7 @@ class ApplyNowRow extends StatelessWidget {
             salary: salary,
           ),
           MaterialButton(
-            onPressed: () {},
+            onPressed: onPressed,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(1000.0),
             ),

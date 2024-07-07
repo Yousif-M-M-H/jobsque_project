@@ -1,9 +1,21 @@
 class Assets {
   Assets._();
   
+  /// Assets for imagesAmericaFlag
+  /// assets/images/america-flag.png
+  static const String imagesAmericaFlag = "assets/images/america-flag.png";
+
+  /// Assets for imagesApplicationSuccess
+  /// assets/images/application_success.svg
+  static const String imagesApplicationSuccess = "assets/images/application_success.svg";
+
   /// Assets for imagesArrowRight
   /// assets/images/arrow_right.svg
   static const String imagesArrowRight = "assets/images/arrow_right.svg";
+
+  /// Assets for imagesDesinger
+  /// assets/images/desinger.svg
+  static const String imagesDesinger = "assets/images/desinger.svg";
 
   /// Assets for imagesDropdown
   /// assets/images/dropdown.svg
@@ -21,6 +33,10 @@ class Assets {
   /// assets/images/filternoti.svg
   static const String imagesFilternoti = "assets/images/filternoti.svg";
 
+  /// Assets for imagesGojek
+  /// assets/images/gojek.svg
+  static const String imagesGojek = "assets/images/gojek.svg";
+
   /// Assets for imagesGoogleContainer
   /// assets/images/google_container.svg
   static const String imagesGoogleContainer = "assets/images/google_container.svg";
@@ -33,6 +49,14 @@ class Assets {
   /// assets/images/guy_image.svg
   static const String imagesGuyImage = "assets/images/guy_image.svg";
 
+  /// Assets for imagesIlustrator
+  /// assets/images/ilustrator.svg
+  static const String imagesIlustrator = "assets/images/ilustrator.svg";
+
+  /// Assets for imagesInfotech
+  /// assets/images/infotech.svg
+  static const String imagesInfotech = "assets/images/infotech.svg";
+
   /// Assets for imagesLogOutIcon
   /// assets/images/log_out_icon.svg
   static const String imagesLogOutIcon = "assets/images/log_out_icon.svg";
@@ -44,6 +68,14 @@ class Assets {
   /// Assets for imagesManagement
   /// assets/images/management.svg
   static const String imagesManagement = "assets/images/management.svg";
+
+  /// Assets for imagesManagmentJcon
+  /// assets/images/managment_jcon.svg
+  static const String imagesManagmentJcon = "assets/images/managment_jcon.svg";
+
+  /// Assets for imagesNotificationContainer
+  /// assets/images/notification_container.svg
+  static const String imagesNotificationContainer = "assets/images/notification_container.svg";
 
   /// Assets for imagesOptionsIcon
   /// assets/images/options_icon.svg
@@ -77,9 +109,17 @@ class Assets {
   /// assets/images/save_icon_filled.svg
   static const String imagesSaveIconFilled = "assets/images/save_icon_filled.svg";
 
+  /// Assets for imagesSavedPage
+  /// assets/images/saved_page.svg
+  static const String imagesSavedPage = "assets/images/saved_page.svg";
+
   /// Assets for imagesSplashImage
   /// assets/images/splash_image.svg
   static const String imagesSplashImage = "assets/images/splash_image.svg";
+
+  /// Assets for imagesSvgviewerOutput
+  /// assets/images/svgviewer-output.svg
+  static const String imagesSvgviewerOutput = "assets/images/svgviewer-output.svg";
 
   /// Assets for imagesTwitterLogo
   /// assets/images/twitter_logo.svg

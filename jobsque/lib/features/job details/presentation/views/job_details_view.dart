@@ -1,14 +1,26 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:jobsque/core/utils/assets.dart';
 import 'package:jobsque/core/utils/styles.dart';
 import 'package:jobsque/features/apply_job/presentation/views/apply_job_view.dart';
+import 'package:jobsque/core/storage/token_storage.dart';
 import 'package:jobsque/features/job%20details/presentation/views/widgets/job_details_view_body.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class JobDetailsView extends StatelessWidget {
   const JobDetailsView({Key? key, required this.jobId}) : super(key: key);
 
   final int jobId;
+
+  Future<bool> _loadFavState() async {
+    final prefs = await SharedPreferences.getInstance();
+    final tokenStorage = TokenStorage();
+    final userId = await tokenStorage.getUserId();
+    final isFav = prefs.getBool('fav_${jobId}_user_$userId') ?? false;
+    return isFav;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,13 +32,24 @@ class JobDetailsView extends StatelessWidget {
           style: AppStyles.mediumFont20,
         ),
         actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 24),
-            child: SvgPicture.asset(
-              Assets.imagesSaveIcon,
-              // ignore: deprecated_member_use
-              color: Colors.blue,
-            ),
+          FutureBuilder<bool>(
+            future: _loadFavState(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.done &&
+                  snapshot.hasData) {
+                return Padding(
+                  padding: const EdgeInsets.only(right: 24),
+                  child: SvgPicture.asset(
+                    snapshot.data!
+                        ? Assets.imagesSaveIconFilled
+                        : Assets.imagesSaveIcon,
+                    color: Colors.black,
+                  ),
+                );
+              } else {
+                return Container();
+              }
+            },
           ),
         ],
       ),
@@ -46,10 +69,7 @@ class JobDetailsView extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => ApplyJobView(
-                        jobId: jobId,
-                      ),
-                    ),
+                        builder: (context) => ApplyJobView(jobId: jobId)),
                   );
                 },
                 style: ElevatedButton.styleFrom(

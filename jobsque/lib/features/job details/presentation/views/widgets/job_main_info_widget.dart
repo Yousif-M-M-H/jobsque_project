@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:jobsque/core/utils/assets.dart';
 import 'package:jobsque/core/utils/styles.dart';
 import 'package:jobsque/features/job%20details/presentation/views/widgets/chip_row_job_info.dart';
 
@@ -9,10 +7,12 @@ class JobMainInformationWidget extends StatelessWidget {
     super.key,
     required this.jobName,
     required this.jobLocation,
+    required this.url,
   });
 
   final String jobName;
   final String jobLocation;
+  final String url;
 
   @override
   Widget build(BuildContext context) {
@@ -20,8 +20,8 @@ class JobMainInformationWidget extends StatelessWidget {
       alignment: Alignment.center,
       child: Column(
         children: [
-          SvgPicture.asset(
-            Assets.imagesZoom,
+          CircleAvatar(
+            child: Image.network(url),
           ),
           const SizedBox(height: 12),
           Text(

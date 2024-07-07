@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously, avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -14,6 +16,9 @@ class SuggestedJobContainer extends StatefulWidget {
   final String salary;
   final String jobType;
   final int jobId;
+  final String compName;
+  final void Function()? onButtonPressed;
+  final String jobImage;
 
   const SuggestedJobContainer({
     Key? key,
@@ -21,6 +26,9 @@ class SuggestedJobContainer extends StatefulWidget {
     required this.salary,
     required this.jobType,
     required this.jobId,
+    required this.compName,
+    this.onButtonPressed,
+    required this.jobImage,
   }) : super(key: key);
 
   @override
@@ -86,7 +94,14 @@ class _SuggestedJobContainerState extends State<SuggestedJobContainer> {
             children: [
               Row(
                 children: [
-                  SvgPicture.asset(Assets.imagesZoom),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(8),
+                    child: Image.network(
+                      widget.jobImage,
+                      width: 40,
+                      height: 40,
+                    ),
+                  ),
                   const SizedBox(width: 20),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -97,9 +112,9 @@ class _SuggestedJobContainerState extends State<SuggestedJobContainer> {
                         style: AppStyles.mediumFont18
                             .copyWith(color: Colors.white),
                       ),
-                      const Text(
-                        'Zoom • United States',
-                        style: TextStyle(
+                      Text(
+                        '${widget.compName} • Egypt, Cairo',
+                        style: const TextStyle(
                           color: Color(0xFF9CA3AF),
                           fontSize: 12,
                           fontFamily: 'SF Pro Display',
@@ -138,6 +153,7 @@ class _SuggestedJobContainerState extends State<SuggestedJobContainer> {
           ),
           const SizedBox(height: 5),
           ApplyNowRow(
+            onPressed: widget.onButtonPressed,
             salary: widget.salary,
           )
         ],

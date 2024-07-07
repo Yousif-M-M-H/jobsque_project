@@ -61,10 +61,21 @@ class HomeViewBody extends StatelessWidget {
                               child: SizedBox(
                                 width: 350,
                                 child: SuggestedJobContainer(
+                                  jobImage: job.image!,
                                   jobId: job.id!,
                                   jobName: job.name ?? "Nothing",
                                   salary: job.salary!.substring(0, 2),
                                   jobType: job.jobTimeType ?? "full-time",
+                                  compName: job.compName ?? "",
+                                  onButtonPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            JobDetailsView(jobId: job.id!),
+                                      ),
+                                    );
+                                  },
                                 ),
                               ),
                             ),

@@ -1,8 +1,6 @@
 // ignore_for_file: avoid_print
 
 import 'package:flutter/material.dart';
-import 'package:dio/dio.dart';
-import 'package:jobsque/core/models/home_models/get_portfolio_mode.dart';
 import 'package:jobsque/core/storage/token_storage.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -20,31 +18,6 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   void initState() {
     super.initState();
-    _fetchPortfolioData();
-  }
-
-  Future<void> _fetchPortfolioData() async {
-    String? bearerToken = await tokenStorage.getToken();
-
-    final dio = Dio();
-    const String url =
-        'https://project2.amit-learning.com/api/user/profile/portofolios';
-
-    try {
-      final response = await dio.get(
-        url,
-        options: Options(headers: {'Authorization': 'Bearer $bearerToken'}),
-      );
-      final portfolioModel = GetPortfolioModel.fromJson(response.data);
-      if (portfolioModel.data?.portfolio != null &&
-          portfolioModel.data!.portfolio!.isNotEmpty) {
-        setState(() {
-          imageUrl = portfolioModel.data!.portfolio!.first.image;
-        });
-      }
-    } catch (e) {
-      print(e);
-    }
   }
 
   @override

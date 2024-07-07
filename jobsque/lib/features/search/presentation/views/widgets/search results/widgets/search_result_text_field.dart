@@ -2,15 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:jobsque/core/utils/styles.dart';
 
 class SearchResultTextField extends StatelessWidget {
-  const SearchResultTextField(
-      {super.key, this.searchController, this.onChanged});
-  final TextEditingController? searchController;
+  const SearchResultTextField({
+    super.key,
+    this.controller,
+    this.onChanged,
+  });
+  final TextEditingController? controller;
   final void Function(String)? onChanged;
+
   @override
   Widget build(BuildContext context) {
     return TextField(
       onChanged: onChanged,
-      controller: searchController,
+      controller: controller,
       decoration: InputDecoration(
         contentPadding:
             const EdgeInsets.symmetric(horizontal: 16, vertical: 15),

@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:jobsque/core/utils/assets.dart';
 import 'package:jobsque/core/utils/styles.dart';
 import 'package:jobsque/features/home/presentation/views/widgets/recent_job_salary.dart';
+import 'package:jobsque/features/job%20details/presentation/views/widgets/job_details_chip_container.dart';
 
 class RecentJobWidget extends StatelessWidget {
   const RecentJobWidget({
@@ -49,11 +50,17 @@ class RecentJobWidget extends StatelessWidget {
             children: [
               const Row(
                 children: [
-                  JobChipper(),
+                  JobDetailsChip(
+                    title: "Fulltime",
+                  ),
                   SizedBox(width: 8),
-                  JobChipper(),
+                  JobDetailsChip(
+                    title: "Onsite",
+                  ),
                   SizedBox(width: 8),
-                  JobChipper(),
+                  JobDetailsChip(
+                    title: "Senior",
+                  ),
                 ],
               ),
               RecentJobSalary(

@@ -10,12 +10,14 @@ class DisplayJobContainer extends StatelessWidget {
     required this.salary,
     required this.jobType,
     this.onIconTap,
+    required this.compName,
   }) : super(key: key);
 
   final String jobName;
   final String salary;
   final String jobType;
   final void Function()? onIconTap;
+  final String compName;
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +55,7 @@ class DisplayJobContainer extends StatelessWidget {
                         ),
                       ),
                       subtitle: Text(
-                        "Zoom • United States",
+                        "$compName • Egpyt",
                         style: AppStyles.normalFont12.copyWith(
                           color: const Color(0xFF9CA3AF),
                         ),
@@ -159,10 +161,14 @@ class SuggestedJobContainerChip extends StatelessWidget {
         color: Colors.white.withOpacity(0.14000000059604645),
       ),
       backgroundColor: const Color(0XFF2C3A8D),
-      label: Text(
-        title,
-        style: AppStyles.normalFont12.copyWith(color: Colors.white),
+      label: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10),
+        child: Text(
+          title,
+          style: const TextStyle(color: Colors.white),
+        ),
       ),
+      shape: const StadiumBorder(),
     );
   }
 }

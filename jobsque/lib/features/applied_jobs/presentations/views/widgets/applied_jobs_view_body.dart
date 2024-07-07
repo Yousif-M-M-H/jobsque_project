@@ -53,26 +53,36 @@ class _AppliedJobsViewBodyState extends State<AppliedJobsViewBody> {
     return Column(
       children: [
         const SizedBox(height: 20),
-        Container(
-          width: double.infinity,
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
-          decoration: const ShapeDecoration(
-            color: Color(0xFFF4F4F5),
-            shape: RoundedRectangleBorder(
-              side: BorderSide(
-                width: 1,
-                color: Color(0xFFE5E7EB),
+        FutureBuilder<List<JobByIdData>>(
+          future: appliedJobs,
+          builder: (context, snapshot) {
+            String jobCountText = " Applied Jobs";
+            if (snapshot.connectionState == ConnectionState.done &&
+                snapshot.hasData) {
+              jobCountText = "Applied Jobs: ${snapshot.data!.length}";
+            }
+            return Container(
+              width: double.infinity,
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+              decoration: const ShapeDecoration(
+                color: Color(0xFFF4F4F5),
+                shape: RoundedRectangleBorder(
+                  side: BorderSide(
+                    width: 1,
+                    color: Color(0xFFE5E7EB),
+                  ),
+                ),
               ),
-            ),
-          ),
-          child: Center(
-            child: Text(
-              "Applied Jobs",
-              style: AppStyles.mediumFont14.copyWith(
-                color: const Color(0xFF6B7280),
+              child: Center(
+                child: Text(
+                  jobCountText, // Dynamically display the length of applied jobs here
+                  style: AppStyles.mediumFont14.copyWith(
+                    color: const Color(0xFF6B7280),
+                  ),
+                ),
               ),
-            ),
-          ),
+            );
+          },
         ),
         const SizedBox(height: 25),
         Expanded(
@@ -97,6 +107,7 @@ class _AppliedJobsViewBodyState extends State<AppliedJobsViewBody> {
                       return AppliedJobContainer(
                         jobTitle: job.name!,
                         compName: job.compName!,
+                        jobImage: job.image!,
                       );
                     },
                   );

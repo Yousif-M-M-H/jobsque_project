@@ -8,6 +8,7 @@ class JobDetailsChip extends StatelessWidget {
   });
 
   final String title;
+
   @override
   Widget build(BuildContext context) {
     return Chip(
@@ -17,6 +18,7 @@ class JobDetailsChip extends StatelessWidget {
       ),
       backgroundColor: const Color(0xFFD6E4FF),
       label: Text(title),
+      shape: const StadiumBorder(),
     );
   }
 }

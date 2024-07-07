@@ -7,7 +7,7 @@ class ChooseLocationView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      body: ChooseLocationViewBody(),
+      body: SignUpLocationScreen(),
     );
   }
 }

@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -5,6 +7,7 @@ import 'package:jobsque/core/models/home_models/fav_jobs_model.dart';
 import 'package:jobsque/core/storage/token_storage.dart';
 import 'package:jobsque/core/utils/assets.dart';
 import 'package:jobsque/core/utils/styles.dart';
+import 'package:jobsque/features/favorites/presentation/views/widgets/no_saved_view_body.dart';
 import 'package:jobsque/features/favorites/presentation/views/widgets/saved_job_container.dart';
 
 class FavJobViewBody extends StatefulWidget {
@@ -40,10 +43,9 @@ class _FavJobViewBodyState extends State<FavJobViewBody> {
       } else {
         throw Exception('Failed to load jobs');
       }
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       if (e.response?.statusCode == 404) {
-        // Handling 404 specifically
-        return []; // Return an empty list to indicate no jobs
+        return [];
       } else {
         throw Exception('Failed to load jobs: $e');
       }
@@ -69,7 +71,7 @@ class _FavJobViewBodyState extends State<FavJobViewBody> {
                 );
               } else {
                 return const SavedJobContainerWidget(
-                  jobLength: "0", // Default or loading state
+                  jobLength: "0",
                 );
               }
             },
@@ -83,9 +85,10 @@ class _FavJobViewBodyState extends State<FavJobViewBody> {
                   return const Center(child: CircularProgressIndicator());
                 } else if (snapshot.hasError) {
                   return Center(
-                      child: Text(snapshot.error.toString().contains("404")
-                          ? 'No job saved!'
-                          : 'Error: ${snapshot.error}'));
+                    child: Text(snapshot.error.toString().contains("404")
+                        ? 'No job saved!'
+                        : 'Error: ${snapshot.error}'),
+                  );
                 } else if (snapshot.hasData && snapshot.data!.isNotEmpty) {
                   return ListView(
                     children: snapshot.data!.map((job) {
@@ -161,8 +164,7 @@ class _FavJobViewBodyState extends State<FavJobViewBody> {
                     }).toList(),
                   );
                 } else {
-                  // Handle empty data
-                  return const Center(child: Text('No job saved!'));
+                  return const NoJobSavedViewBody(); // Display the custom widget
                 }
               },
             ),

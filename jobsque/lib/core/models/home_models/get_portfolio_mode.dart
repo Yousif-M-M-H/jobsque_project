@@ -1,57 +1,27 @@
 class GetPortfolioModel {
-  bool? status;
-  GetPortfolioData? data;
+  List<Data>? data;
 
-  GetPortfolioModel({this.status, this.data});
+  GetPortfolioModel({this.data});
 
   GetPortfolioModel.fromJson(Map<String, dynamic> json) {
-    status = json['status'];
-    data = json['data'] != null
-        ? new GetPortfolioData.fromJson(json['data'])
-        : null;
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['status'] = this.status;
-    if (this.data != null) {
-      data['data'] = this.data!.toJson();
-    }
-    return data;
-  }
-}
-
-class GetPortfolioData {
-  List<Portfolio>? portfolio;
-  GetProfileModel? profile;
-
-  GetPortfolioData({this.portfolio, this.profile});
-
-  GetPortfolioData.fromJson(Map<String, dynamic> json) {
-    if (json['portfolio'] != null) {
-      portfolio = <Portfolio>[];
-      json['portfolio'].forEach((v) {
-        portfolio!.add(new Portfolio.fromJson(v));
+    if (json['data'] != null) {
+      data = <Data>[];
+      json['data'].forEach((v) {
+        data!.add(new Data.fromJson(v));
       });
     }
-    profile = json['profile'] != null
-        ? new GetProfileModel.fromJson(json['profile'])
-        : null;
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.portfolio != null) {
-      data['portfolio'] = this.portfolio!.map((v) => v.toJson()).toList();
-    }
-    if (this.profile != null) {
-      data['profile'] = this.profile!.toJson();
+    if (this.data != null) {
+      data['data'] = this.data!.map((v) => v.toJson()).toList();
     }
     return data;
   }
 }
 
-class Portfolio {
+class Data {
   int? id;
   String? cvFile;
   String? name;
@@ -60,7 +30,7 @@ class Portfolio {
   String? createdAt;
   String? updatedAt;
 
-  Portfolio(
+  Data(
       {this.id,
       this.cvFile,
       this.name,
@@ -69,7 +39,7 @@ class Portfolio {
       this.createdAt,
       this.updatedAt});
 
-  Portfolio.fromJson(Map<String, dynamic> json) {
+  Data.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     cvFile = json['cv_file'];
     name = json['name'];
@@ -86,83 +56,6 @@ class Portfolio {
     data['name'] = this.name;
     data['image'] = this.image;
     data['user_id'] = this.userId;
-    data['created_at'] = this.createdAt;
-    data['updated_at'] = this.updatedAt;
-    return data;
-  }
-}
-
-class GetProfileModel {
-  int? id;
-  int? userId;
-  String? name;
-  String? email;
-  String? mobile;
-  String? address;
-  String? language;
-  String? interestedWork;
-  String? offlinePlace;
-  String? remotePlace;
-  String? bio;
-  String? education;
-  String? experience;
-  String? personalDetailed;
-  String? createdAt;
-  String? updatedAt;
-
-  GetProfileModel(
-      {this.id,
-      this.userId,
-      this.name,
-      this.email,
-      this.mobile,
-      this.address,
-      this.language,
-      this.interestedWork,
-      this.offlinePlace,
-      this.remotePlace,
-      this.bio,
-      this.education,
-      this.experience,
-      this.personalDetailed,
-      this.createdAt,
-      this.updatedAt});
-
-  GetProfileModel.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    userId = json['user_id'];
-    name = json['name'];
-    email = json['email'];
-    mobile = json['mobile'];
-    address = json['address'];
-    language = json['language'];
-    interestedWork = json['interested_work'];
-    offlinePlace = json['offline_place'];
-    remotePlace = json['remote_place'];
-    bio = json['bio'];
-    education = json['education'];
-    experience = json['experience'];
-    personalDetailed = json['personal_detailed'];
-    createdAt = json['created_at'];
-    updatedAt = json['updated_at'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['user_id'] = this.userId;
-    data['name'] = this.name;
-    data['email'] = this.email;
-    data['mobile'] = this.mobile;
-    data['address'] = this.address;
-    data['language'] = this.language;
-    data['interested_work'] = this.interestedWork;
-    data['offline_place'] = this.offlinePlace;
-    data['remote_place'] = this.remotePlace;
-    data['bio'] = this.bio;
-    data['education'] = this.education;
-    data['experience'] = this.experience;
-    data['personal_detailed'] = this.personalDetailed;
     data['created_at'] = this.createdAt;
     data['updated_at'] = this.updatedAt;
     return data;

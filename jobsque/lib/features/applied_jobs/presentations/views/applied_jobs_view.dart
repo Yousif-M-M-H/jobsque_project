@@ -13,7 +13,7 @@ class AppliedJobsView extends StatelessWidget {
         title: const Padding(
           padding: EdgeInsets.only(top: 15),
           child: Text(
-            "Saved",
+            "Applied jobs",
             style: AppStyles.mediumFont20,
           ),
         ),
